@@ -257,3 +257,14 @@ AND login_name <> 'DATAISEC-LAB\Administrator';
 
 PRINT @sql; 
 EXEC sp_executesql @sql;
+
+-- mail
+EXEC sp_configure 'show advanced options', 1;
+RECONFIGURE;
+EXEC sp_configure 'Database Mail XPs';
+
+EXEC msdb.dbo.sp_send_dbmail
+    @profile_name = 'vincent',
+    @recipients = 'h226810797@gmail.com',
+    @subject = 'Test Email',
+    @body = '這是一封測試信。';
